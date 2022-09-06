@@ -1,0 +1,8 @@
+FROM tomcat
+RUN apt-get update;apt-get upgrade -y;apt-get install wget unzip git maven -y
+RUN git clone https://github.com/ShailAdmin/MaventestCode.git
+RUN cp -rp /usr/local/tomcat/MaventestCode /usr/local/tomcat/
+RUN mvn compile;mvn test;mvn package;mvn install
+RUN mv RegistrationForm.war ROOT.war
+RUN mv ROOT.war webapps
+CMD catalina.sh run
